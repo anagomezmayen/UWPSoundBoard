@@ -21,6 +21,18 @@ namespace UWPSoundBoard.Model
             allSounds.ForEach(sound => sounds.Add(sound));
 
         }
+
+        public static void GetSoundByCategory(ObservableCollection<Sound> sounds, SoundCategory category)
+        {
+            var allSounds = GetSounds();
+            sounds.Clear();
+
+            var filteredSounds = allSounds.Where(sound => sound.Category == category).ToList();
+
+            filteredSounds.ForEach(sound => sounds.Add(sound));
+
+        }
+
         public static List<Sound> GetSounds()
         {
             var sounds = new List<Sound>();
@@ -36,5 +48,6 @@ namespace UWPSoundBoard.Model
             return sounds;
         }
 
+        
     }
 }

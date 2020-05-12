@@ -13,21 +13,30 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <RelativePanel>
-            <Button Name="HamburguerButton" RelativePanel.AlignLeftWithPanel="True" FontFamily="Segoe MDL2 Assets" Content="&#xE700;"/>
-            <Button x:Name="BackButton" RelativePanel.RightOf="HamburguerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE0A6;"/>
-            <SplitView Grid.Row="1" Name="mySplitView" DisplayMode="CompactOverlay" CompactPaneLength="45" OpenPaneLength="200">
+            <Button Name="HamburguerButton" RelativePanel.AlignLeftWithPanel="True" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" Click="HamburguerButton_Click"/>
+            <Button x:Name="BackButton" RelativePanel.RightOf="HamburguerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE0A6;" Click="BackButton_Click"/>
+            <SplitView Grid.Row="1" Name="mySplitView" DisplayMode="CompactOverlay" CompactPaneLength="45" OpenPaneLength="200" Margin="0,27,0,0">
                 <SplitView.Pane>
-                    <ListView Name="menuItemsListView" IsItemClickEnabled="True"/>
+                    <ListView Name="menuItemsListView" IsItemClickEnabled="True" ItemsSource="{x:Bind MenuItems}" ItemClick="menuItemsListView_ItemClick">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="model:MenuItem">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{x:Bind IconFile}" Height="25" Width="25"/>
+                                    <TextBlock Text="{x:Bind Category}" FontSize="18"  Margin="10,0,0,10"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </SplitView.Pane>
                 <SplitView.Content>
-                    <Grid Margin="40,40,0,0">
+                    <Grid Margin="20,20,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <MediaElement Name="myMediaElement" AutoPlay="True"/>
                         <TextBlock Name="CategoryTextBlock" Text="All sounds" FontSize="24"/>
-                        <GridView Grid.Row="1" Name="soundGridView" IsItemClickEnabled="True" ItemsSource="{x:Bind Sounds}">
+                        <GridView Grid.Row="1" Name="soundGridView" IsItemClickEnabled="True" ItemsSource="{x:Bind Sounds}" ItemClick="soundGridView_ItemClick">
                             <GridView.ItemTemplate>
                                 <DataTemplate x:DataType="model:Sound">
                                     <Image Name="soundImage" Height="112" Width="101" Source="{x:Bind ImageFile}"/>
